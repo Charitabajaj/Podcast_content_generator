@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Podcast Content Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/mic.png">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="/static/mic.png" alt="Podcast Mic" class="logo">
+            <h1>Deep Podcast Content Generator</h1>
+            <p class="subtitle">For Substance-Rich, Media-Ready Episodes</p>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; {{ year }} Deep Podcast Content Generator. Media Industry Edition.</p>
+        </div>
+    </footer>
+</body>
+</html> 

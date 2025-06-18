@@ -1,0 +1,82 @@
+podcast_templates:
+  solo_narrative:
+    structure:
+      - intro_hook
+      - main_theme
+      - personal_insights
+      - curated_quotes
+      - reflective_questions
+      - closing_thoughts
+    tone: "reflective, intelligent, and emotionally grounded"
+    target_length: 30
+
+  interview:
+    structure:
+      - guest_introduction
+      - background_context
+      - deep_dive_questions
+      - personal_stories
+      - philosophical_insights
+      - closing_reflections
+    tone: "conversational, insightful, and thought-provoking"
+    target_length: 45
+
+content_categories:
+  - philosophy
+  - psychology
+  - personal_growth
+  - culture
+  - ethics
+  - human_condition
+  - mindfulness
+  - wisdom_traditions
+
+prompt_templates:
+  episode_outline: |
+    Create a detailed outline for a {length}-minute podcast episode on {topic}.
+    Focus on depth, insight, and meaningful dialogue.
+    Include:
+    1. Compelling opening hook
+    2. Main themes and discussion points
+    3. Key questions to explore
+    4. Potential quotes or references
+    5. Closing reflection
+
+  guest_questions: |
+    Generate {count} thought-provoking questions for a podcast interview with {guest_name}.
+    Focus on:
+    1. Personal journey and experiences
+    2. Philosophical insights
+    3. Lessons learned
+    4. Future perspectives
+    5. Impact on listeners
+
+  episode_title: |
+    Create a poetic yet clear title for a podcast episode about {topic}.
+    The title should:
+    1. Capture the essence of the discussion
+    2. Be memorable and intriguing
+    3. Reflect the depth of the content
+    4. Appeal to lifelong learners 
+
+# API Configuration
+api:
+  gemini_key: "AIzaSyAvruVrW_qAussAvuOQLVAYfz0UCuwj-EI"
+
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 5000
+  debug: true
+
+# Content Generation Settings
+generation:
+  styles:
+    - deep
+    - casual
+    - educational
+  
+  default_durations:
+    outline: 30
+    questions: 45
+    title: 60 

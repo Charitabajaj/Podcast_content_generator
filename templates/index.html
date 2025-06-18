@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Content Generator - Media Industry Suite</title>
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f3460;
+            --highlight-color: #e94560;
+            --text-color: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(22, 33, 62, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--highlight-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--highlight-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--highlight-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--highlight-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn-generate {
+            background: var(--highlight-color);
+            color: var(--text-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-generate:hover {
+            background: #ff2d55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        .loading-container {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--input-bg);
+            border-top: 5px solid var(--highlight-color);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .output-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff4444;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Podcast Content Generator</h1>
+        
+        <!-- Content Research & Analysis Form -->
+        <div class="form-container">
+            <h2>Content Research & Analysis</h2>
+            <form id="researchForm" onsubmit="generateResearch(event)">
+                <div class="form-group">
+                    <label for="topic">Main Topic:</label>
+                    <input type="text" id="topic" name="topic" placeholder="Enter your podcast topic" required>
+                </div>
+                <div class="form-group">
+                    <label for="keywords">Key Trends & Keywords:</label>
+                    <textarea id="keywords" name="keywords" placeholder="Enter relevant keywords, trends, or specific areas to analyze" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="analysisType">Analysis Type:</label>
+                    <select id="analysisType" name="analysisType" required>
+                        <option value="trends">Current Trends Analysis</option>
+                        <option value="competitors">Competitor Content Analysis</option>
+                        <option value="audience">Audience Interest Analysis</option>
+                        <option value="gaps">Content Gap Analysis</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-generate">Generate Research Analysis</button>
+            </form>
+        </div>
+
+        <!-- Questions Generation Form -->
+        <div class="form-container">
+            <h2>Generate Interview Questions</h2>
+            <form id="questionsForm" onsubmit="generateQuestions(event)">
+                <div class="form-group">
+                    <label for="questionsTopic">Topic:</label>
+                    <input type="text" id="questionsTopic" name="topic" required>
+                </div>
+                <div class="form-group">
+                    <label for="guestExpertise">Guest Expertise:</label>
+                    <input type="text" id="guestExpertise" name="guest_expertise" required>
+                </div>
+                <div class="form-group">
+                    <label for="questionsStyle">Style:</label>
+                    <select id="questionsStyle" name="style" required>
+                        <option value="deep">Deep Dive</option>
+                        <option value="casual">Casual Conversation</option>
+                        <option value="educational">Educational</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-generate">Generate Questions</button>
+            </form>
+        </div>
+
+        <!-- Title Generation Form -->
+        <div class="form-container">
+            <h2>Generate Episode Titles</h2>
+            <form id="titleForm" onsubmit="generateTitle(event)">
+                <div class="form-group">
+                    <label for="titleTopic">Topic:</label>
+                    <input type="text" id="titleTopic" name="topic" required>
+                </div>
+                <div class="form-group">
+                    <label for="titleStyle">Style:</label>
+                    <select id="titleStyle" name="style" required>
+                        <option value="deep">Deep Dive</option>
+                        <option value="casual">Casual Conversation</option>
+                        <option value="educational">Educational</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-generate">Generate Titles</button>
+            </form>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="spinner"></div>
+            <p>Generating content...</p>
+        </div>
+
+        <!-- Output Display -->
+        <div class="output-content" id="output"></div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loadingContainer').style.display = 'block';
+            document.getElementById('output').innerHTML = '';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingContainer').style.display = 'none';
+        }
+
+        async function generateResearch(event) {
+            event.preventDefault();
+            showLoading();
+
+            const formData = new FormData(event.target);
+            try {
+                const response = await fetch('/generate_research', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.text();
+                document.getElementById('output').innerHTML = data;
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
+            }
+            hideLoading();
+        }
+
+        async function generateQuestions(event) {
+            event.preventDefault();
+            showLoading();
+
+            const formData = new FormData(event.target);
+            try {
+                const response = await fetch('/generate_questions', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.text();
+                document.getElementById('output').innerHTML = data;
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
+            }
+            hideLoading();
+        }
+
+        async function generateTitle(event) {
+            event.preventDefault();
+            showLoading();
+
+            const formData = new FormData(event.target);
+            try {
+                const response = await fetch('/generate_title', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.text();
+                document.getElementById('output').innerHTML = data;
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
+            }
+            hideLoading();
+        }
+    </script>
+</body>
+</html> 
