@@ -46,11 +46,10 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Set up environment variables:
-Create a `.env` file and add your Gemini API key:
-```
-GEMINI_API_KEY=your_api_key_here
-```
+4. Set up Gemini API key:
+   - Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Create a new API key
+   - Open `config.yaml` and replace `YOUR_GEMINI_API_KEY_HERE` with your actual API key
 
 5. Run the application:
 ```bash
